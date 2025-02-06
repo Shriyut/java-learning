@@ -86,9 +86,7 @@ public class Variables {
         // java evaluates statements with operators based on operator precedence table
 
 
-        StringBuilder sb = new StringBuilder("asdasdsadasd");
-        sb.append("asdasd");
-        System.out.println(sb);
+
 
         String st = "sample_string";
         //String inspection methods
@@ -108,5 +106,42 @@ public class Variables {
         System.out.println(st.split("_"));
         System.out.println(st.toCharArray());
         System.out.println(st.getBytes());
+
+        //string comparision methods
+        System.out.println(st.equals("sample_string"));
+        System.out.println(st.equalsIgnoreCase("sample_string"));
+        System.out.println(st.contentEquals("sample_string")); // content equals can be used with other object types
+        System.out.println(st.compareTo("sample_string")); // 0
+        System.out.println(st.compareToIgnoreCase("sample_string")); // 0
+        System.out.println(st.startsWith("s"));
+        System.out.println(st.endsWith("g"));
+        System.out.println(st.regionMatches(0, "sample_string", 0, 5));
+        System.out.println(st.regionMatches(true, 0, "sample_string", 0, 5)); // ignore case
+
+        //string manipulation methods
+        System.out.println(st.concat("concat"));
+        System.out.println(String.join("/", "25", "12", "2021"));
+
+
+        // String is immutable and each instance method returns a new string object, StringBuilders are mutable
+        StringBuilder sb = new StringBuilder("asdasdsadasd"); // no value or another StringBuilder object can be passed
+        sb.append("5525532452455");
+        System.out.println(sb);
+//        System.out.println(sb.contentEquals("asdasdsadasd5525532452455"));
+        System.out.println(sb.length());
+        System.out.println(sb.capacity());
+        System.out.println(sb.charAt(0));
+        System.out.println(sb.indexOf("s"));
+        System.out.println(sb.lastIndexOf("s"));
+        System.out.println(sb.substring(0, 5));
+        System.out.println(sb.replace(0, 5, "s"));
+        System.out.println(sb.delete(0, 5));
+        System.out.println(sb.insert(0, "s"));
+        System.out.println(sb.reverse());
+        System.out.println(sb.toString());
+        System.out.println(sb.deleteCharAt(6));
+        System.out.println(sb.insert(6, "s"));
+        System.out.println(sb.reverse());
+
     }
 }

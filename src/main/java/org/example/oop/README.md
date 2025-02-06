@@ -124,6 +124,10 @@ Because of this rule this() and super() cannot be called from the same construct
 
 Object class is the root class of all classes in Java. It is the superclass of all other classes. It has methods that are inherited by all other classes, such as equals(), hashCode(), and toString().
 
+In Java we can only inherit from one class, so multiple inheritance is not supported. However, we can implement multiple interfaces.
+
+
+
 ### this vs super
 
 The keyword super is used to access or call the parent class members (variables and methods). 
@@ -235,5 +239,61 @@ class Dog {
 ```
 ![Overloading vs Overriding](image.png)
 
+## Composition
 
+Composition is a design principle in object-oriented programming that models a has-a relationship. It allows one class to contain an object of another class as a field. This is different from inheritance, which models an is-a relationship.
+
+Inheritance is a way to reuse functionality and attributes, composition is a way to amke the combination of classes act like a single coherent object.
+
+As a rule look at using composition first before using implementing inheritance
+
+The reasons composition is preferred over inheritance:
+
+- Composition is more flexible, you can add parts in or remove them, and these changes are less likely to have a downstream effect
+- Composition provides functional reuse outside of the class hierarchy, meaning classes can share attributes and behavior, by having similar components, instead of inheriting functionality from a parent or base class
+- Java's inheritance breaks encapsulation because subclasses may need direct access to a parent's state or behavior
+
+Inheritance is less flexible
+
+- Adding a class to or removing a class from a class hierarchy may impact all subclasses from that point
+- A new subclass may not need all the functionality or attributes of its parent class
+
+## Encapsulation
+
+Encapsulation is a fundamental principle in object-oriented programming that restricts direct access to some of an object's components. It is a way to protect the data in a class by hiding the implementation details and providing access to the data through public methods.
+
+Why would we want to hide things in Java?
+
+- To make the interface simpler, we may want to hide unnecessary details.
+- To protect the integrity of data on an obejct, we may hide or restrict access to some of the data and operations
+- To decouple the published interface from the internal details of the class, we may hide actual names nad types of class members
+
+Encapsulation is achieved by declaring the fields of a class as private and providing public methods to access and modify those fields. These methods are called getters and setters.
+
+Allowing direct access to data on an object can bypass checks and operations.
+
+It encourages an interdependency or coupling between the calling code and the class
+
+Encapsulation prevents calling code from bypassing the rules and constraints we've built into the class.
+
+To create an encapsulated class, you want to:
+
+- Create constructors for object initialization, which enforces that only objects with valid daa will get created
+- Use the private access modifier for your fields
+- Use setter methods sparingly and only as needed
+- Use access modifiers that aren't private, only for the methods that the calling code needs to use
+
+## Polymorphism
+
+Polymorphism is a fundamental concept in object-oriented programming that allows objects to be treated as instances of their parent class rather than their actual class. It allows for flexibility and extensibility in code.
+
+Polymorphism in Java allows us to write code that can call a method, but the actual method that gets executed can be different for different obejcts at runtime.
+
+This means that the behavior that occurs during program execution depends on the runtime type of the object, which might differ from its declared type in the code.
+
+For polymorphism to work, the declared type must have a relationship with the runtime type. Inheritance is one way to establish this relationship, where a subclass can override a method from its superclass, enabling polymorphic behavior.
+
+Polymorphism is achieved through method overriding, where a subclass provides a specific implementation of a method that is already provided by its parent class. The method in the subclass has the same name, return type, and parameters as the method in the parent class.
+
+Polymorphism is also achieved through method overloading, where two or more methods in the same class have the same method name but different parameters. The methods can have different return types or different numbers of parameters.
 
