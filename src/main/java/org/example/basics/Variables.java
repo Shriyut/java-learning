@@ -85,5 +85,28 @@ public class Variables {
         // operand1 ? operand2 : operand3 - if operand1 is true then operand2 is executed
         // java evaluates statements with operators based on operator precedence table
 
+
+        StringBuilder sb = new StringBuilder("asdasdsadasd");
+        sb.append("asdasd");
+        System.out.println(sb);
+
+        String st = "sample_string";
+        //String inspection methods
+        System.out.println(st.length());
+        System.out.println(st.charAt(0));
+        System.out.println(st.indexOf("s"));
+        System.out.println(st.lastIndexOf("s"));
+        System.out.println(st.substring(0, 5));
+        System.out.println(st.contains("s"));
+        System.out.println(st.equals("sample_string"));
+        System.out.println(st.isEmpty());
+        System.out.println(st.isBlank());
+        System.out.println(st.replace("s", "S"));
+        System.out.println(st.toUpperCase());
+        System.out.println(st.toLowerCase());
+        System.out.println(st.trim());
+        System.out.println(st.split("_"));
+        System.out.println(st.toCharArray());
+        System.out.println(st.getBytes());
     }
 }

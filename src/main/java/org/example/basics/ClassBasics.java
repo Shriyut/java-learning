@@ -29,6 +29,7 @@ public class ClassBasics {
 
         // System.COnsole cannot be used from intellij
         String name = "";
+
         try{
             name = getInputFromScanner();
         }catch(Exception e){
