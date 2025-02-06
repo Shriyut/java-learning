@@ -1,5 +1,7 @@
 package org.example.basics;
 
+import java.util.Arrays;
+
 public class Variables {
     public static void main(String[] args) {
         // Sample class to depict how variables are used in java
@@ -143,5 +145,10 @@ public class Variables {
         System.out.println(sb.insert(6, "s"));
         System.out.println(sb.reverse());
 
+        String[] splitStrings = "Hello WOrld Again".split(" ");
+        System.out.println(Arrays.toString(splitStrings));
+
+        String[] sArray = {"first", "second", "third", "fourth", "fifth"};
+        System.out.println(String.join(",", sArray));
     }
 }
