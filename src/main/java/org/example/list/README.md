@@ -1,5 +1,64 @@
 # Lists
 
+Some object-oriented languages don't support any primitive data types at all, meaning everything is an object.
+
+BUt most of the more popular object-oriented languages of the day, including Java, support both primitive types and objects.
+
+Primitive types generally represent the way data is stored on an operating system.
+
+Primitives have some advantages over objects, especially as the number of elements you need to store increase.
+
+Objects take up additional memory and may require a little more processing power.
+
+We know we can create objects, with primitive data types as field types, for example, and we can also return primitive types from methods.
+
+ArrayList or LinkedList don't support primitive data types as a collection type.
+
+Java gives us wrapper classes for each primitive type.
+
+When we go from a primitive type to a wrapper it's called boxing.
+
+When we go from a wrapper to a primitive type it's called unboxing.
+
+A primitive is boxed, or wrapped, in a containing class, whose main data is the primitive value.
+
+Each primitive data type has a wrapper class, as shown on the list.
+
+Each wrapper type boxes a specific primitive value.
+
+### How do we box?
+
+Each wrapper has a static overloaded factory method, valueOf, which takes a primitive as an argument and returns an instance of the wrapper class.
+
+```java
+Integer boxedInt = Integer.valueOf(15); // better space and time performance but unnecessary
+Integer boxedInt1 = new Integer(14); // deprecated since Java 9 
+```
+
+In truth, we rarely have to manually box primitives, because Java supports something called autoboxing.
+
+Autoboxing is where Java automatically boxes a primitive type for you, hence the term autoboxing.
+
+```java
+Integer boxedInt = 15;
+```
+
+This makes it easy to assign a primitive to a wrapper variable.
+
+Every wrapper class supports a method to return the primitive value it contains, this is called unboxing.
+
+```java
+Integer boxedInteger = 15;
+int unboxedInt = boxedInteger.intValue();
+```
+Just like boxing it is unnecessary to manually unbox, automatic unboxing is really just referred to as unboxing in most cases.
+
+```java
+int unboxedInt = boxedInteger;
+```
+
+
+
 Two of the most common classes for lists are ArrayLIst and LinkedList
 
 A list is a special type in Java, called an Interface.
@@ -108,3 +167,4 @@ next() to get next method and hasNext() to check if there are more elements afte
 An iterator is forwards only and only supports the remove method.
 
 A ListIterator allows you to navigate both forwards and backwards, besides the remove method, it also supports the add and set methods
+
