@@ -62,6 +62,8 @@ An interface is a reference type in Java, similar to a class, that can contain o
 
 An interface is a contract between the interface and the class that implements it.
 
+An interface lets us treat an instance of a single class as many different types.
+
 By declaring it's using an interface, your class must implement all the abstract methods on the interface.
 
 An interface lets classes that might have little else in common be recognized as a special reference type.
@@ -86,6 +88,24 @@ An interface can extend multiple interfaces.
 
 An interface can't extend a class.
 
+The final static field, is what you're really creating, when you declare a field on an interface.
+
+An extension method is identified by the modifier default, it has a method body, even if the body is just an empty set of curly braces.
+
+Just like overriding a method on a class, you have three choices when you override a default method on an interface.
+
+- You can choose not to override it at all
+- You can override the method and write code for it, so that the interface method isn't executed
+- Or you can write your own code, and invoke the method on the interface, as part of your implementation.
+
 ## Method Modifiers
 
 ![method modifiers](img.png)
+
+When we use the final modifier, we prevent any further modifications to that component.
+A final class can not be overridden, meaning no class can use it in the extends clause.
+
+
+## Interface vs Abstract Class
+
+
