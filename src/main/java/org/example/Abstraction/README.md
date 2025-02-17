@@ -105,7 +105,49 @@ Just like overriding a method on a class, you have three choices when you overri
 When we use the final modifier, we prevent any further modifications to that component.
 A final class can not be overridden, meaning no class can use it in the extends clause.
 
+A private static method can be accessed by either a public static method, a default method, or a private non-static method
+
 
 ## Interface vs Abstract Class
 
+Abstract classes are very similar to interfaces. You can't instantiate either of them. Both types may contain a mix of methods declared with or without a method block.
 
+With abstract classes, you can declare fields that aren't static and final. Instance fields in other words.
+
+Also with abstract classes, you can use any of the four access modifiers for its concrete methods.
+
+You can also use all but the private access modifier for its abstract methods
+
+An abstract class can extend only one parent class, but it can implement multiple interfaces.
+
+When an abstract class is subclassed, the subclass usually provides implementation for all of the abstract methods in its parent class.
+
+Use an Abstract class when:
+
+- You want to share code among several closely related classes.
+- You expect that classes that extend your abstract class have many common methods or fields, or require access modifiers other than public (such as protected and private).
+- You want to declare non-static or non-final fields. 
+- You have a requirement for your base class to provide a default implementation of certain methods, but other methods should be open to being overridden by child classes.
+
+Summary: An abstract class provides a common definition, as a base class, that multiple derived classes can share.
+
+
+An interface is just the declaration of methods, which you want some classes to have, its not the implementation.
+
+In an interface, we define what kind of operation an object can perform, These operations are defined by the classes that implement the interface.
+
+Interface form a contract between the class and the outside world, and this contract is enforced at build time by the Java compiler.
+
+You can't instantiate interfaces, but they may contain a mix of methods declared with or without an implementation.
+
+All methods on interfaces declared without a method body, are automatically public and abstract.
+
+Interface are not part of your class hierarchy.
+
+Use an Interface when:
+
+- You expect that unrelated classes would implement your interface. For example, the interfaces Comparable and Cloneable are implemented by many unrelated classes.
+- You want to specify the behavior of a particular data type, but not concerned about who implements its behavior.
+- You want to take advantage of multiple inheritance of type.
+
+![Interface vs Abstract Class](img_1.png)
