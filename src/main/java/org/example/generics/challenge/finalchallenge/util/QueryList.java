@@ -1,6 +1,6 @@
 package org.example.generics.challenge.finalchallenge.util;
 
-import dev.lpa.model.Student;
+import org.example.generics.challenge.finalchallenge.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;

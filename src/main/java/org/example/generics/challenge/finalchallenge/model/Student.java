@@ -1,6 +1,6 @@
 package org.example.generics.challenge.finalchallenge.model;
 
-import dev.lpa.util.QueryItem;
+import org.example.generics.challenge.finalchallenge.util.QueryItem;
 
 import java.util.Random;
 

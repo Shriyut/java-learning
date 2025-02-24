@@ -1,8 +1,8 @@
 package org.example.generics.challenge.finalchallenge;
 
-import dev.lpa.model.LPAStudent;
-import dev.lpa.model.LPAStudentComparator;
-import dev.lpa.util.QueryList;
+import org.example.generics.challenge.finalchallenge.model.LPAStudent;
+import org.example.generics.challenge.finalchallenge.model.LPAStudentComparator;
+import org.example.generics.challenge.finalchallenge.util.QueryList;
 
 import java.util.Comparator;
 import java.util.List;
