@@ -67,3 +67,63 @@ public <T> String myMethod(T input){
 }
 ```
 
+## Type Parameters, Type Arguments and using a wildcard
+
+Type parameters are used to define the type of elements in a generic class or method.
+
+A type parameter is a generic class, or generic method's declaration of the type. You can bind a type parameter with the use of the extends keyword, to specify an upperbound.
+
+```java
+// generic class
+
+public class Team<T> {};
+
+//generic method
+
+public <T> void doSomething(T t) {};
+```
+
+A type argument declares the type to be used, and is specified in a type reference, such as a local variable reference, method parameter declaration, or field declaration.
+
+```java
+// generic class
+Team<BaseballPlayer> team = new Team<>();
+```
+
+A wildcard can only be used in a type argument, not in the type parameter declaration.
+
+A wildcard is represented by the ? character.
+
+A wildcard means that the type is unknown.
+
+```java
+List<?> unknownList;
+```
+
+A wild card can't be used in an instantiation of a generic class.
+
+```java
+// code shown below is invalid
+var myList = new ArrayList<?>();
+```
+
+![wildcard](img.png)
+
+```java
+public static void testList(List<?> list) {
+    for (Object o : list) {
+        System.out.println(o);
+    }
+}
+```
+
+Class's type parameter cannot be used with a static method, the generic class's type parameter only has meaning for the instance and therefore instance methods at the class level the generic is unknown.
+
+When generic classes are loaded into memory, the type parameter is erased, and the class is loaded as a raw type. A generic method's type is unrelated to the type declared on the generic class.
+
+```java
+public static <T> List<T> getMatches (List<T> items){};
+//the T after static and the T in List<T> are treated differently
+
+```
+
