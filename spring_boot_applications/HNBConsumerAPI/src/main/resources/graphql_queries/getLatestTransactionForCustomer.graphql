@@ -1,0 +1,21 @@
+{
+    getLatestTransactionForCustomer(customerId: "1") {
+        customerDetails {
+            customerId
+            nickname
+        }
+        accounts {
+            accountId
+            balance
+            latestTransaction {
+                accountDepositAchTransactionId
+                bankNumber
+                pendingTransactionId
+                transactionStatusType
+                transactionAmount
+                sourceTransactionReference
+                transactionNote
+            }
+        }
+    }
+}

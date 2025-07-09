@@ -1,0 +1,27 @@
+{
+    getAggregatedTransactions(accountId: "ACC1", startDate: "2023-12-31", endDate: "2025-12-31"){
+        mpTransactions {
+            pendingTransactionId
+            accountId
+            transactionAmount
+            transactionAmountType
+            sourceTransactionDate
+            transactionCurrency
+            postingDate
+            description
+            sourceTransactionReference
+        }
+        achTransactions {
+            accountDepositAchTransactionId
+            accountId
+            bankNumber
+            transactionAmount
+            transactionStatusType
+            transactionAmountType
+            transactionNote
+            currencyCode
+            sourceTransactionDescription
+            effectiveDate
+        }
+    }
+}

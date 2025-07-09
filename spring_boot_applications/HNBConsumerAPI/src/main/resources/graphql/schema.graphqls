@@ -1,0 +1,145 @@
+type Query {
+    getCustomerAccountInfo(customerId: String!): CustomerAccountInfo
+    getTransactionHistory(accountId: String!): TransactionHistory
+    getCustomerLatestTransaction(customerId: String!): CustomerLatestTransaction
+    getLatestTransactionForCustomer(customerId: String!): LatestTransactionRecord
+    getAggregatedTransactions(accountId: String!, startDate: String!, endDate: String!): AggregatedTransactions
+    getPast2DayTransactionsByAccountId(accountId: String!): Past2DayTransactions
+}
+
+type Past2DayTransactions {
+    customer: CustomerRelationshipAccount
+    accounts: [AccountDepositAchTransactions]
+}
+
+type AggregatedTransactions {
+    mpTransactions: [PendingTransaction]
+    achTransactions: [AccountDepositAchTransactions]
+}
+
+type LatestTransactionRecord {
+    customerDetails: CustomerRelationshipAccount
+    accounts: [AccountInfo]
+}
+
+type CustomerDetails {
+    customerId: String
+    accounts: [AccountInfo]
+}
+
+type AccountInfo {
+    accountId: String
+    balance: String
+    latestTransaction: AccountDepositAchTransactions
+}
+
+type CustomerLatestTransaction {
+    customerDetails: CustomerRelationshipAccount
+    accounts: AccountDetails
+}
+
+type AccountDetails {
+    accountId: String
+    balance: String
+    latestTransaction: AccountDepositAchTransactions
+}
+
+type TransactionHistory {
+    accountId:String
+    pendingTransactions: [PendingTransaction]
+    accountDepositAchTransactions: [AccountDepositAchTransactions]
+}
+
+type CustomerAccountInfo {
+    customerRelationshipAccount: CustomerRelationshipAccount
+    pendingTransactions: [PendingTransaction]
+    accountDepositAchTransactions: [AccountDepositAchTransactions]
+}
+
+type CustomerRelationshipAccount {
+    customerRelationshipsAccountId: String
+    customerId: String
+    nickname: String
+    relationshipTypeCode: String
+    relationshipTypeDescription: String
+    relationshipStatus: String
+    accountOwnershipIndicator: Boolean
+    ownerDesignation: String
+    ownerDesignationTitle: String
+    originatingBankNumber: String
+    signerPresentAtAccountOpeningIndicator: Boolean
+    effectiveStartDate: String
+    effectiveEndDate: String
+    accountId: String
+    externalAccountId: String
+    accountShortNickname: String
+    customerRelationshipsCustomerId: String
+
+}
+
+type PendingTransaction {
+    pendingTransactionId: String
+    accountId: String
+    transactionAmountType: String
+    postingDate: String
+    customerId: String
+    sicCode: String
+    forcedIndicator: Boolean
+    transactionCurrency: String
+    transactionAmount: String
+    cashAmount: String
+    checkAmount: String
+    feeAmount: String
+    description: String
+    availableBalanceCurrency: String
+    availableBalanceAmount: String
+    additionalFundingUsedIndicator: Boolean
+    originalDepositAmount: String
+    sourceSystemReference: String
+    sourceTransactionCode: String
+    sourceTransactionReference: String
+    sourceSequenceNumber: String
+    sourceTransactionDate: String
+    sourceTransactionTime: String
+    transactionRecordedTimestamp: String
+    isoTransactionCode: String
+    transactionCity: String
+    transactionState: String
+    transactionAuthorizationCode: String
+    pendingPenaltyFeeAmount: String
+    carryoverIndicator: Boolean
+    additionalFundingUsedAmount: String
+    loginType: String
+    loginId: String
+    sourceTransactionType: String
+    startDate: String
+    endDate: String
+}
+
+type AccountDepositAchTransactions {
+    accountDepositAchTransactionId: String
+    accountId: String
+    bankNumber: String
+    pendingTransactionId: String
+    accountDepositsAchFileId: String
+    accountDepositsAchBatchId: String
+    transactionStatusType: String
+    sourceTransactionCode: String
+    sourceTransactionDescription: String
+    transactionAmount: String
+    transactionTimeStamp: String
+    transactionAmountType: String
+    currencyCode: String
+    postingDate: String
+    shortDescription: String
+    traceNumber: String
+    effectiveDate: String
+    transactionNote: String
+    sourceTransactionReference: String
+    standardEntryClassReference: String
+    addendaText: String
+    externalAccountNumber: String
+    startDate: String
+    endDate: String
+}
+

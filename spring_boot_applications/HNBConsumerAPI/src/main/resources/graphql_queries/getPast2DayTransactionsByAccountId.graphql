@@ -1,0 +1,24 @@
+{
+    getPast2DayTransactionsByAccountId(accountId: "ACC1") {
+        customer {
+            customerId
+            nickname
+            relationshipTypeCode
+            accountOwnershipIndicator
+        }
+        accounts {
+            accountDepositAchTransactionId
+            accountId
+            bankNumber
+            pendingTransactionId
+            transactionStatusType
+            sourceTransactionCode
+            transactionAmount
+            transactionAmountType
+            postingDate
+            currencyCode
+            transactionNote
+            sourceTransactionReference
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    getTransactionHistory(accountId: "ACC1") {
+        pendingTransactions {
+            pendingTransactionId
+            accountId
+            transactionAmountType
+            postingDate
+            customerId
+            sicCode
+            forcedIndicator
+            transactionAmount
+            transactionCurrency
+            cashAmount
+            checkAmount
+            feeAmount
+            description
+            availableBalanceAmount
+            availableBalanceCurrency
+            additionalFundingUsedIndicator
+            originalDepositAmount
+            sourceSystemReference
+            sourceTransactionCode
+            sourceTransactionReference
+            sourceSequenceNumber
+            sourceTransactionDate
+            sourceTransactionTime
+            transactionRecordedTimestamp
+            isoTransactionCode
+            transactionCity
+            transactionState
+            transactionAuthorizationCode
+            pendingPenaltyFeeAmount
+            carryoverIndicator
+            additionalFundingUsedAmount
+            loginId
+            loginType
+            sourceTransactionType
+        }
+        accountDepositAchTransactions {
+            accountDepositAchTransactionId
+            accountId
+            bankNumber
+            pendingTransactionId
+            accountDepositsAchFileId
+            accountDepositsAchBatchId
+            transactionStatusType
+            sourceTransactionCode
+            sourceTransactionDescription
+            transactionAmount
+            transactionTimeStamp
+            transactionAmountType
+            currencyCode
+            postingDate
+            shortDescription
+            traceNumber
+            effectiveDate
+            transactionNote
+            sourceTransactionReference
+            standardEntryClassReference
+            addendaText
+            externalAccountNumber
+        }
+    }
+}

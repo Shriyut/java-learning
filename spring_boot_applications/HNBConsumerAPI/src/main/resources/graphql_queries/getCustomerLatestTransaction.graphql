@@ -1,0 +1,21 @@
+{
+    getCustomerLatestTransaction(customerId: "1") {
+        customerDetails {
+            customerId
+            nickname
+        }
+        accounts {
+            accountId
+            balance
+            latestTransaction {
+                traceNumber
+                transactionAmount
+                transactionAmountType
+                currencyCode
+                effectiveDate
+                sourceTransactionCode
+                sourceTransactionDescription
+            }
+        }
+    }
+}
