@@ -297,3 +297,88 @@ Polymorphism is achieved through method overriding, where a subclass provides a 
 
 Polymorphism is also achieved through method overloading, where two or more methods in the same class have the same method name but different parameters. The methods can have different return types or different numbers of parameters.
 
+## Constructors
+
+
+A constructor defines what occurs when an object of a class is created.
+A constructor is a special method that is called when an object is instantiated. It is used to initialize the object's state and allocate memory for the object.
+A constructor has the same name as the class and does not have a return type. It can have parameters, which are used to initialize the object's fields.
+
+### Constructor Overloading
+
+Constructor overloading is a feature in Java that allows a class to have multiple constructors with the same name but different parameter lists. This allows for different ways to initialize an object of the class.
+### Example:
+```java
+class Rectangle {
+    private int width;
+    private int height;
+
+    // Default constructor
+    public Rectangle() {
+        this.width = 0;
+        this.height = 0;
+    }
+
+    // Constructor with width and height parameters
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    // Constructor with only width parameter
+    public Rectangle(int width) {
+        this.width = width;
+        this.height = width; // Square
+    }
+}
+```
+
+The finalize() method is called by the garbage collector when it determines that there are no more references to the object. It is used to perform cleanup operations before the object is destroyed.
+It is the opposite of a constructor, which is called when an object is created.
+
+```java
+@Override
+protected void finalize() throws Throwable {
+    try {
+        // Cleanup code here
+    } finally {
+        super.finalize();
+    }
+}
+```
+
+## this keyword
+
+The `this` keyword is a reference to the current object. It is used to differentiate between instance variables and parameters with the same name.
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name; // 'this.name' refers to the instance variable, 'name' refers to the parameter
+        this.age = age;   // 'this.age' refers to the instance variable, 'age' refers to the parameter
+    }
+}
+```
+
+Whenever we call a member function of a class using an object, in addition to the parameters that are explicitly being passed to the function, address of the object is also passed to it implicitly.
+This address is implicitly collected by the member function in a reference with a special name - this.
+
+Through the this reference every member function has access to address of the object through which it is called. 
+The this reference ceases to exist when the control returns from the member function. The this reference can be treated like any other reference to an object. It can be used to access the data in the object it points to.
+
+```java
+
+class Counter {
+    private int count;
+
+    public void increment() {
+        this.count++; // 'this' refers to the current object
+    }
+
+    public int getCount() {
+        return this.count; // 'this' refers to the current object
+    }
+}
+```
