@@ -1252,3 +1252,1909 @@ The Java Memory Model (JMM) defines how threads in a Java program interact throu
 When working with overloaded constructors, it is sometimes useful for one constructor to invoke another. In Java, this is accomplished by using another form of `this` keyword.
 
 `this(arglist);`
+
+## Optional Class
+
+The `Optional` class in Java is a container object that may or may not contain a non-null value. It is used to represent the presence or absence of a value, helping to avoid null pointer exceptions and making code more readable and expressive.
+```java
+import java.util.Optional;
+public class OptionalExample {
+    public static void main(String[] args) {
+        // Creating an Optional with a non-null value
+        Optional<String> optionalValue = Optional.of("Hello, World!");
+
+        // Checking if the value is present
+        if (optionalValue.isPresent()) {
+            System.out.println("Value: " + optionalValue.get());
+        }
+
+        // Creating an empty Optional
+        Optional<String> emptyOptional = Optional.empty();
+
+        // Using orElse to provide a default value
+        String defaultValue = emptyOptional.orElse("Default Value");
+        System.out.println("Value: " + defaultValue);
+    }
+}
+```
+
+## Observable Class
+
+The `Observable` class in Java is part of the `java.util` package and is used to implement the Observer design pattern. It represents an object that can be observed by other objects (observers). When the state of the observable object changes, it notifies all registered observers about the change.
+```java
+import java.util.Observable;
+import java.util.Observer;
+// Observable class
+class NewsAgency extends Observable {
+    private String news;
+
+    public void setNews(String news) {
+        this.news = news;
+        setChanged(); // Mark the observable as changed
+        notifyObservers(news); // Notify all observers
+    }
+}
+// Observer class
+class NewsChannel implements Observer {
+    private String name;
+
+    public NewsChannel(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println(name + " received news update: " + arg);
+    }
+}
+// Main class
+public class ObserverExample {
+    public static void main(String[] args) {
+        NewsAgency agency = new NewsAgency();
+
+        NewsChannel channel1 = new NewsChannel("Channel 1");
+        NewsChannel channel2 = new NewsChannel("Channel 2");
+
+        agency.addObserver(channel1);
+        agency.addObserver(channel2);
+
+        agency.setNews("Breaking News: Java Observer Pattern in Action!");
+    }
+}
+```
+
+## Timer and TimerTask
+
+The `Timer` class in Java is used to schedule tasks for future execution in a background thread. It allows you to schedule tasks to be executed once or repeatedly at fixed intervals. The tasks to be executed are defined by extending the `TimerTask` class.
+```java
+import java.util.Timer;
+import java.util.TimerTask;
+public class TimerExample {
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+
+        // Schedule a task to run after a delay of 2 seconds
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Task executed after 2 seconds");
+            }
+        }, 2000);
+
+        // Schedule a task to run every 3 seconds
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Repeating task executed");
+            }
+        }, 0, 3000);
+    }
+}
+```
+
+In this example, we create a `Timer` object and schedule two tasks. The first task is scheduled to run once after a delay of 2 seconds, while the second task is scheduled to run repeatedly every 3 seconds. Each task is defined by extending the `TimerTask` class and overriding the `run()` method to specify the code to be executed when the task is triggered.
+```java
+import java.util.Timer;
+import java.util.TimerTask;
+class MyTimerTask extends TimerTask {
+    @Override
+    public void run() {
+        System.out.println("Timer task executed");
+    }
+}
+public class TimerTaskExample {
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+        MyTimerTask task = new MyTimerTask();
+
+        // Schedule the task to run after a delay of 1 second
+        timer.schedule(task, 1000);
+    }
+}
+```
+
+## ResourceBundle, ListResourceBundle, and PropertyResourceBundle Classes
+
+The `ResourceBundle` class in Java is used for internationalization (i18n) and localization (l10n) of applications. It allows you to manage and retrieve locale-specific resources, such as strings, images, and other data, based on the user's locale settings.
+```java
+import java.util.ResourceBundle;
+public class ResourceBundleExample {
+    public static void main(String[] args) {
+        // Load the resource bundle for the default locale
+        ResourceBundle bundle = ResourceBundle.getBundle("Messages");
+
+        // Retrieve localized strings
+        String greeting = bundle.getString("greeting");
+        String farewell = bundle.getString("farewell");
+
+        System.out.println(greeting);
+        System.out.println(farewell);
+    }
+}
+```
+
+In this example, we load a resource bundle named "Messages" and retrieve localized strings for "greeting" and "farewell". The actual resource files (e.g., Messages_en.properties, Messages_fr.properties) would contain the localized strings for different locales.
+```java
+import java.util.ListResourceBundle;
+public class MyResources_en extends ListResourceBundle {
+    protected Object[][] getContents() {
+        return new Object[][] {
+            {"greeting", "Hello"},
+            {"farewell", "Goodbye"}
+        };
+    }
+}
+
+public class MyResources_fr extends ListResourceBundle {
+    protected Object[][] getContents() {
+        return new Object[][] {
+            {"greeting", "Bonjour"},
+            {"farewell", "Au revoir"}
+        };
+    }
+}
+```
+
+The java.util package includes three classes that aid in the internationalization of your program.
+The ResourceBundle abstract class defines methods taht enable you to manage a collection of locale-sensitive resources.
+
+A locale refers to a specific geograhical, cultural, or political region.
+In Java, the locale class is used to encapsulate this information.
+
+The ListResourceBundle class is a subclass of ResourceBundle that manages resources for a locale in the form of key-value pairs stored in an array.
+
+## java.lang 
+
+java.lang is automatically imported into all programs.
+
+Primitive types like int and char cannot be directly passed by reference.
+There is no way for two methods to refer to the same instance of an int.
+
+Java provides classes that correspond to each of the primitive types. In essence, these classes  encapsulate, or wrap, the primitive types within a class.
+Thus, they are commonly referred to as type wrappers.
+
+### Number
+
+The abstract class Number defines a superclass that is implemented by the classes that wrap the numeric types byte, short, int, long, float, and double.
+
+Number has abstract methods that return the value of the object in each of the different number formats.
+
+Number has concrete subclasses that hold explicit values of each primitive numeric type: Double, Float, Byte, Short, Integer, and Long.
+
+Float and Double provide the methods isInfinite() and is Nan(), which help when manipulating two special double and float values.
+These methods test for two unique values defined by the IEEE floating-point specification: infinity and NaN (not a number).
+isInfinite() returns true if the value being tested is infinitely large or small in magnitude.
+is NaN() returns true if the value being tested is not a number.
+
+### Using clone() and the Cloneable Interface
+
+The `clone()` method in Java is used to create a copy of an object. It is defined in the `Object` class and is protected by default, meaning it can only be accessed within the same package or by subclasses.
+To use the `clone()` method, a class must implement the `Cloneable` interface, which is a marker interface (it does not contain any methods). Implementing this interface indicates that the class supports cloning.
+```java
+class MyClass implements Cloneable {
+    private int value;
+
+    public MyClass(int value) {
+        this.value = value;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // Call the Object's clone() method
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+public class CloneExample {
+    public static void main(String[] args) {
+        try {
+            MyClass original = new MyClass(10);
+            MyClass copy = (MyClass) original.clone(); // Clone the original object
+
+            System.out.println("Original value: " + original.getValue());
+            System.out.println("Cloned value: " + copy.getValue());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Cloning is a potentially dangerous action, because it can cause unintended side effects.
+
+
+### The Comparable Interface
+
+The `Comparable` interface in Java is used to define the natural ordering of objects of a class. It contains a single method, `compareTo()`, which is used to compare the current object with another object of the same type. The `compareTo()` method returns an integer value that indicates the relative order of the two objects.
+```java
+class MyClass implements Comparable<MyClass> {
+    private int value;
+
+    public MyClass(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public int compareTo(MyClass other) {
+        return Integer.compare(this.value, other.value);
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+public class ComparableExample {
+    public static void main(String[] args) {
+        MyClass obj1 = new MyClass(10);
+        MyClass obj2 = new MyClass(20);
+
+        int result = obj1.compareTo(obj2);
+        if (result < 0) {
+            System.out.println("obj1 is less than obj2");
+        } else if (result > 0) {
+            System.out.println("obj1 is greater than obj2");
+        } else {
+            System.out.println("obj1 is equal to obj2");
+        }
+    }
+}
+```
+
+Objects of classes the implement Comparable can be ordered.
+The Comparable interface declares one method that is used to determine what Java calls the natural ordering of instances of a class.
+
+`int compareTo(T obj)`
+
+This method captures the invoking object with obj.
+It returns 0 if the values are equal.
+A negative value is returned if the invoking object has a lower value.
+Otherwise, a positive value is returned.
+
+### The Appendable Interface
+
+The `Appendable` interface in Java is used to define a contract for classes that can append character sequences. It contains methods for appending characters, character sequences, and strings to an object. The `Appendable` interface is implemented by classes such as `StringBuilder`, `StringBuffer`, and `Writer`.
+
+```java
+public class AppendableExample {
+    public static void main(String[] args) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            // Append a character
+            stringBuilder.append('A');
+
+            // Append a character sequence
+            stringBuilder.append("BCDE");
+
+            // Append a string
+            stringBuilder.append("FGHIJ");
+
+            System.out.println("Appended String: " + stringBuilder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Objects of a class that implements Appendable can have a character or character sequences appended to it.
+
+### The Iterable Interface
+
+The `Iterable` interface in Java is used to define a contract for classes that can be iterated over. It contains a single method, `iterator()`, which returns an `Iterator` object that can be used to traverse the elements of the collection. The `Iterable` interface is implemented by classes such as `ArrayList`, `HashSet`, and `LinkedList`.
+
+```java
+import java.util.Iterator;
+import java.util.ArrayList;
+public class IterableExample {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+
+        // Using the iterator to traverse the elements
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String fruit = iterator.next();
+            System.out.println(fruit);
+        }
+    }
+}
+```
+
+Iterable must be implemented by any class whose objects will be used by the for-each version of the for loop.
+
+In other words, in order for an object to be used within a for-each style for loop, its class must implement Iterable.
+
+```java
+for (Type var : iterableObject) {
+    // Use var
+}
+```
+
+### The Readable Interface
+
+The `Readable` interface in Java is used to define a contract for classes that can read character data. It contains a single method, `read()`, which reads characters into a specified character buffer. The `Readable` interface is implemented by classes such as `Reader` and its subclasses.
+
+### The AutoCloseable Interface
+
+The `AutoCloseable` interface in Java is used to define a contract for classes that can be closed automatically when they are no longer needed. It contains a single method, `close()`, which is called to release resources held by the object. The `AutoCloseable` interface is implemented by classes such as `InputStream`, `OutputStream`, and `Connection`.
+
+### Comparator Interface
+
+The `Comparator` interface in Java is used to define a custom ordering for objects of a class. It contains two methods, `compare()` and `equals()`, which are used to compare two objects and determine their relative order. The `Comparator` interface is often used in conjunction with sorting algorithms and data structures that require ordering, such as `TreeSet` and `PriorityQueue`.
+```java
+import java.util.Comparator;
+class MyComparator implements Comparator<MyClass> {
+    @Override
+    public int compare(MyClass obj1, MyClass obj2) {
+        return Integer.compare(obj1.getValue(), obj2.getValue());
+    }
+}
+public class ComparatorExample {
+    public static void main(String[] args) {
+        MyClass obj1 = new MyClass(10);
+        MyClass obj2 = new MyClass(20);
+
+        MyComparator comparator = new MyComparator();
+        int result = comparator.compare(obj1, obj2);
+
+        if (result < 0) {
+            System.out.println("obj1 is less than obj2");
+        } else if (result > 0) {
+            System.out.println("obj1 is greater than obj2");
+        } else {
+            System.out.println("obj1 is equal to obj2");
+        }
+    }
+}
+```
+
+## Input/Output
+
+### File Class
+
+Although most of the classes defined by java.io operate on streams, the File class does not. 
+It deals directly with files and the file system, i.e. the File class does not specify how information is retrieved from or stored in files; it describes the properties of a file itself.
+
+A File object is used to obtain or manipulate the information associated with a disk file, such as the permissions, time, date, and directory path, and to navigate subdirectory hierarchies.
+
+The following constructors can be used to create File objects
+
+`File(String pathname)`
+`File(String parent, String child)`
+`File(File parent, String child)`
+`File(URI uri)`
+
+The File class provides methods for creating, deleting, and inspecting files and directories.
+
+A directory is a File that contains a list of other files and directories.
+
+There are three interfaces that are quite important to the stream class. Two are Closeable and Flushable, the third is AutoCloseable.
+
+AutoCloseable provides support for the try-with-resources statement, which automates the process of closing a resource.
+
+Only objects of classes that implement AutoCloseable can be managed by try-with-resources.
+
+The AutoCloseable interface defines only the close() method.
+
+```java
+void close() throws Exception;
+```
+
+Because this interface is implemented by all of the I/O classes that open a stream, all such streams can be automatically closed by a try-with-resources statement.
+
+Objects of a class that implements Flushable can force buffered output to be written to the stream to which the object is attached. It defines the flush() method.
+
+Flushing a stream typically causes buffered output to be physically written to the underlying device. This interface is implemented by all of the I/O classes that write to a stream.
+
+The principal advantage of try-with-resources is that the resource is closed automatically when the try block ends.
+
+### The Stream Classes
+
+Java's stream based I/O is build upon four abstract classes: 
+
+- InputStream
+- OutputStream
+- Reader
+- Writer
+
+InputStream and OutputStream are designed for byte streams.
+Reader and Writer are designed for character streams.
+
+The byte stream classes provide a rich environment for handling byte-oriented I/O.
+A byte stream can be used with any type of object, including binary data.
+
+### InputStream
+
+InputStream is an abstract class that defines Java's model of streaming byte input.
+It implements the AutoCloseable and Closeable interfaces
+
+### OutputStream
+
+OutputStream is an abstract class that defines streaming byte output.
+It implements the AutoCloseable, Closeable, and Flushable interfaces.
+Most of the methods defined by this class return void and throw an IOException.
+
+### FileInputStream
+
+The FileInputStream class creates an InputStream that you can use to read bytes from a file.
+Two commonly used constructors are:
+
+`FileInputStream(String filename)`
+`FileInputStream(File file)`
+
+Either can throw a FileNotFoundException.
+
+### FileOutputStream
+
+The FileOutputStream class creates an OutputStream that you can use to write bytes to a file.
+It implements AutoCloseable, Closeable, and Flushable interfaces.
+
+Its commonly used constructors are:
+
+`FileOutputStream(String filename)`
+`FileOutputStream(File file)`
+`FileOutputStream(String filename, boolean append)`
+`FileOutputStream(File file, boolean append)`
+
+Either can throw a FileNotFoundException.
+
+Creation of a FileOutputStream is not dependent on the file already existing.
+
+### ByteArrayInputStream
+
+The ByteArrayInputStream class creates an InputStream that uses a byte array as its source.
+Its commonly used constructors are:
+
+`ByteArrayInputStream(byte[] buf)`
+`ByteArrayInputStream(byte[] buf, int offset, int length)`
+
+The close() method has no effect on a ByteArrayInputStream.
+
+A ByteArrayInputStream implements both mark() and reset(). 
+However if mark() has not been called then reset() sets the stream pointer to the start of the stream.
+
+### ByteArrayOutputStream
+
+The ByteArrayOutputStream class creates an OutputStream that uses a byte array as its destination.
+Its commonly used constructors are:
+`ByteArrayOutputStream()`
+`ByteArrayOutputStream(int size)`
+
+The buffer is held in the protected buf field of ByteArrayOutputStream.
+The buffer size will be increased automatically, if needed.
+The number of bytes held by the buffer is contained in the protected count field of ByteArrayOutputStream.
+
+The close() method has no effect on a ByteArrayOutputStream.
+
+### Filtered Byte Streams
+
+Filtered streams are simply wrappers around underlying input or output streams that transparently provide some extended level of functionality.
+
+### Buffered Byte Streams
+
+A buffered stream extends a filtered stream class by attaching a memory buffer to the I/O stream.
+This buffer allows Java to do I/O operations on more than a byte at a time, thereby improving performance.
+
+### BufferedInputStream
+
+The BufferedInputStream class creates a filtered input stream that adds functionality to another input stream-namely, the ability to buffer the input and to support the mark and reset methods.
+
+Java's BufferedInputStream class allows you to "wrap" any InputStream into a buffered stream to improve performance.
+
+BufferedInputStream has two constructors:
+
+`BufferedInputStream(InputStream in)`
+`BufferedInputStream(InputStream in, int size)`
+
+An optimal buffer size is generally dependent on the host operating system, the amount of memory available, and how the machine is configured.
+The default buffer size is 8192 bytes (8 KB).
+Attaching even a rather small buffer to an I/O stream is always a good idea.
+That way, the low-level system can read blocks of data from the disk or network and store the results in your buffer.
+
+Buffering an input stream also provides the foundation required to support moving backward in the stream of the available buffer.
+Beyond the read() and skip() methods implemented in any InputStream, BufferedInputStream also implements the mark() and reset() methods.
+
+### BufferedOutputStream
+
+The BufferedOutputStream class creates a filtered output stream that adds functionality to another output stream-namely, the ability to buffer the output and to support the flush method.
+
+A BufferedOutputStream is similar to any OutputStream with the exception that the flush() method is used to ensure that data buffers are written to the stream being buffered.
+
+Since the point of a BufferedOutputStream is to improve performance by reducing the number of times the system actually writes data, you may need to call flush() to cause any data that is in buffer to be immediately written.
+
+Its commonly used constructors are:
+
+`BufferedOutputStream(OutputStream out)`
+`BufferedOutputStream(OutputStream out, int size)`
+
+### PushbackInputStream
+
+The PushbackInputStream class creates a filtered input stream that adds functionality to another input stream-namely, the ability to "push back" or "unread" one or more bytes.
+
+Pushback is used on an input stream to allow a byte to be read and then returned to the stream.
+The PushbackInputStream class is useful in situations where you need to read ahead in a stream to determine what to do next, but then need to return the read bytes back to the stream for further processing.
+
+It provides a mechanism to peek at what is coming from an input stream without disrupting it.
+
+Its commonly used constructors are:
+
+`PushbackInputStream(InputStream in)`
+`PushbackInputStream(InputStream in, int size)`
+
+This class provides unread() methods that allow you to push back one or more bytes.
+
+```java
+void unread(int b) throws IOException;
+void unread(byte[] b) throws IOException;
+void unread(byte[] b, int off, int len) throws IOException;
+```
+
+The unread() methods throw an IOException if there is not enough room in the pushback buffer to accommodate the bytes being pushed back.
+
+### SequenceInputStream
+
+The SequenceInputStream class creates an input stream that concatenates multiple input streams into one.
+
+Its commonly used constructors are:
+
+`SequenceInputStream(InputStream s1, InputStream s2)`
+`SequenceInputStream(Enumeration<? extends InputStream> e)`
+
+The SequenceInputStream reads from the first input stream until the end of the stream is reached.
+Then, it reads from the second input stream, and so on, until all input streams have been read.
+
+### PrintStream
+
+The PrintStream class is a filtered output stream that adds functionality to another output stream-namely, the ability to print representations of various data values conveniently.
+PrintStream implements all of the print() and println() methods that are commonly used to display data.
+
+Its commonly used constructors are:
+
+`PrintStream(OutputStream out)`
+`PrintStream(OutputStream out, boolean autoFlush)`
+`PrintStream(OutputStream out, boolean autoFlush, String encoding)`
+
+### DataOutputStream and DataInputStream
+
+DataOutputStream and DataInputStream enable you to write or read primitive data to or from a stream.
+They implement DataOutput and DataInput interfaces respectively.
+DataOutputStream has methods for writing primitive data types to an output stream in a portable way.
+DataInputStream has methods for reading primitive data types from an input stream in a portable way.
+
+These streams make it easy to store binary data, such as integers or floating-point values, in a file.
+
+DataInputStream is the complement of DataOutputStream.
+
+### RandomAccessFile 
+
+The RandomAccessFile class is used to read from and write to a file in a random access manner.
+It allows you to move the file pointer to any position within the file and read or write data at that position.
+
+### The Character Streams
+
+While the byte stream provide sufficient functionality to handle any type of I/O operation, they cannot work directly with Unicode characters.
+
+### Reader
+
+Reader is an abstract class that defines Java's model of streaming character input.
+
+### Writer
+
+Writer is an abstract class that defines Java's model of streaming character output.
+
+### FileReader
+
+The FileReader class creates a Reader that you can use to read characters from a file.
+
+Its commonly used constructors are:
+`FileReader(String filename)`
+`FileReader(File file)`
+
+### FileWriter
+
+The FileWriter class creates a Writer that you can use to write characters to a file.
+Its commonly used constructors are:
+`FileWriter(String filename)`
+`FileWriter(File file)`
+`FileWriter(String filename, boolean append)`
+`FileWriter(File file, boolean append)`
+
+### CharArrayReader
+
+The CharArrayReader class creates a Reader that uses a character array as its source.
+
+Its commonly used constructors are:
+`CharArrayReader(char[] buf)`
+`CharArrayReader(char[] buf, int offset, int length)`
+
+### CharArrayWriter
+
+The CharArrayWriter class creates a Writer that uses a character array as its destination.
+
+Its commonly used constructors are:
+`CharArrayWriter()`
+`CharArrayWriter(int size)`
+
+### BufferedReader
+
+The BufferedReader class creates a filtered reader that adds functionality to another reader-namely, the ability to buffer the input and to support the mark and reset methods.
+
+Its commonly used constructors are:
+
+`BufferedReader(Reader in)`
+`BufferedReader(Reader in, int size)`
+
+As is the case with the byte-oriented stream, buffering an input character stream also provides the foundation required to support moving backward in the stream within the available buffer.
+
+Beyond the read() and skip() methods implemented in any Reader, BufferedReader also implements the mark() and reset() methods.
+
+### BufferedWriter
+
+The BufferedWriter class creates a filtered writer that adds functionality to another writer-namely, the ability to buffer the output and to support the flush method.
+Its commonly used constructors are:
+`BufferedWriter(Writer out)`
+`BufferedWriter(Writer out, int size)`
+
+### PushbackReader
+
+The PushbackReader class allows one or more characters to be returned to the input stream.
+
+Its commonly used constructors are:
+
+`PushbackReader(Reader in)`
+`PushbackReader(Reader in, int size)`
+
+Closing a PushbackReader also closes the underlying stream specified by inputStream.
+
+PushbackReader provides unread(), which returns one or more characters to the invoking input stream.
+
+### PrintWriter
+
+The PrintWriter class is a filtered writer that adds functionality to another writer-namely, the ability to print representations of various data values conveniently.
+Its commonly used constructors are:
+`PrintWriter(Writer out)`
+`PrintWriter(Writer out, boolean autoFlush)`
+`PrintWriter(OutputStream out)`
+`PrintWriter(OutputStream out, boolean autoFlush)`
+
+## Serialization
+
+Serialization is the process of writing the state of an object to a byte stream.
+
+This is useful when you want to save the state of your program to a persistent storage area, such as a file.
+
+Serialization is also needed to implement Remote Method Invocation (RMI).
+RMI allows a Java object on one machine to invoke a method of a Java object on a different machine.
+An object may be supplied as an argument to that remote method.
+
+### Serializable Interface
+
+Only an object that implements the Serializable interface can be saved and restored by the serialization facilities.
+
+The Serializable interface defines no members.
+It is simply used to indicate that a class may be serialized.
+If a class is serializable, all of its subclasses are also serializable.
+
+Variables that are declared as transient are not saved by the serialization facilities.
+Also, static variables are not saved.
+
+### Externalizable Interface
+
+The Externalizable interface extends the Serializable interface and provides more control over the serialization process.
+When a class implements the Externalizable interface, it must implement two methods: `writeExternal()` and `readExternal()`.
+
+Java facilities that serialize an object of a class that implements Externalizable call these methods to save and restore the object's state.
+
+### ObjectOutput Interface
+
+The ObjectOutput interface extends the DataOutput interface and defines additional methods for writing objects to an output stream.
+
+### ObjectInput Interface
+
+The ObjectInput interface extends the DataInput interface and defines additional methods for reading objects from an input stream.
+
+### ObjectOutputStream
+
+The ObjectOutputStream class is used to write objects to an output stream.
+It implements the ObjectOutput interface and provides methods for serializing objects.
+
+### ObjectInputStream
+
+The ObjectInputStream class is used to read objects from an input stream.
+It implements the ObjectInput interface and provides methods for deserializing objects.
+
+## Exploring NIO
+
+Java NIO (New Input/Output) is a collection of Java programming language APIs that offer features for intensive I/O operations. It was introduced in JDK 1.4 and provides a more efficient way to handle I/O operations compared to the traditional Java I/O (java.io) package.
+### Key Components of Java NIO
+
+1. **Buffers**: Buffers are containers for data that is being transferred between a channel and an application. They provide a way to read and write data in a more efficient manner.
+2. **Channels**: Channels are used to read and write data to and from buffers. They provide a connection to an I/O device, such as a file or a network socket.
+3. **Selectors**: Selectors are used to monitor multiple channels for events, such as incoming data or connection requests. They allow a single thread to manage multiple channels, improving scalability and performance.
+4. **Charsets**: Charsets are used to encode and decode character data. They provide a way to convert between different character encodings, such as UTF-8 and ISO-8859-1.
+
+
+It supports buffer-oriented, channel-based approach to I/O operations.
+
+The NIO system is built on two foundational items: buffers and channels.
+A buffer holds data. A channel represents an open connection to an I/O device, such as a file or a socket.
+
+In general, to use the NIO system, you obtain a channel to an I/O device and a buffer to hold daata.
+You then operate on the buffer, inputting or outputting data as needed.
+
+### Buffers
+
+All buffers are subclasses of the Buffer class, which defines the core functionality common to all buffers: current position, limit, and capacity.
+
+All buffers provide various get() and put() methods, which allow you to get data from a buffer or put data into a buffer.
+
+### Channels
+
+A channel represents an open connection to an I/O device, such as a file or a socket.
+
+Channels can be used for reading, writing, or both.
+
+### Charsets and Selectors
+
+A charset defines the way that bytes are mapped to characters.
+You can encode a sequence of characters into bytes using an encoder.
+You can decode a sequence of bytes into characters using a decoder.
+
+A selector supports key-based, non-blocking, multiplexed I/O.
+Selectors enable you to perform I/O through multiple channels.
+Selectors are most applicable to socket-backed channels.
+
+### The Path Interface
+
+The Path interface encapsulates a path in the file system.
+A Path object can represent a file or a directory.
+
+You can obtain a Path object by using the Paths.get() method or the File.toPath() method.
+
+### The Files Class
+
+The Files class provides static methods for file and directory operations.
+You can use the Files class to create, delete, copy, move, and read files and directories.
+You can also use the Files class to read and write file attributes, such as permissions and timestamps.
+
+### The Paths Class
+
+The Paths class provides static methods for creating Path objects.
+You can use the Paths.get() method to create a Path object from a string representation of a path.
+```java
+import java.nio.file.Path;
+import java.nio.file.Paths;
+public class PathsExample {
+    public static void main(String[] args) {
+        Path path = Paths.get("C:/example/directory/file.txt");
+        System.out.println("Path: " + path.toString());
+    }
+}
+```
+
+An important use of NIO is to access a file via a channel and buffers.
+
+### Reading a File via a Channel
+
+```java
+import java.io.FileInputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+public class NIOFileReadExample {
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("example.txt");
+             FileChannel fileChannel = fis.getChannel()) {
+
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            int bytesRead = fileChannel.read(buffer);
+
+            while (bytesRead != -1) {
+                buffer.flip(); // Switch buffer from writing to reading
+
+                while (buffer.hasRemaining()) {
+                    System.out.print((char) buffer.get());
+                }
+
+                buffer.clear(); // Clear buffer for the next read
+                bytesRead = fileChannel.read(buffer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Use NIO for Stream-Based I/O
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+public class NIOStreamExample {
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("input.txt");
+             FileOutputStream fos = new FileOutputStream("output.txt");
+             FileChannel inputChannel = fis.getChannel();
+             FileChannel outputChannel = fos.getChannel()) {
+
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            int bytesRead = inputChannel.read(buffer);
+
+            while (bytesRead != -1) {
+                buffer.flip(); // Switch buffer from writing to reading
+                outputChannel.write(buffer);
+                buffer.clear(); // Clear buffer for the next read
+                bytesRead = inputChannel.read(buffer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Use NIO for Path and File System Operations
+
+## Stream API
+
+The stream API provides some of the most significant demonstrations of the power that lambdas being to Java.
+
+Streams are sequences of elements that support various methods which can be pipelined to produce the desired result.
+
+A stream is a conduit for data.
+Thus, a stream represents a sequence of objects.
+
+A stream itself never provides storage for the data.
+It simply moves data, possibly filtering, sorting, or otherwise operating on that data in the process.
+
+### Stream Interfaces
+
+An I/O stream can act conceptually much like one of the streams defined by java.util.stream, they are not same.
+
+The stream API defines several stream interfaces, which are packaged in java.util.stream.
+At the foundation ins BaseStream, which defines functionality available in all streams.
+
+Methods are notated either terminal or intermediate.
+
+A terminal operation consumes the stream.
+It is used to produce a result.
+
+Once a stream has been consumed it cannot be reused.
+
+Intermediate operations produce another stream.
+Intermediate operations can be used to create a pipeline that performs a sequence of actions.
+
+Intermediate operations do not take place immediately.
+Instead, the specified action is performed when a terminal operation is executed on the new stream created by an intermediate operation.
+This mechanism is referred to as lazy behaviour, and the intermediate operations are referred to as lazy.
+
+The use of lazy intermediate operations can improve performance by eliminating unnecessary processing.
+
+Some intermediate operations are stateless and some are stateul.
+
+In stateless operation, each element is processed independently of the others.
+
+In a stateful operation, the processing of an element may depend on aspects of other elements.
+sorted() method is stateful.
+filter() is stateless.
+
+
+You can obtain a stream in a number of ways.
+The Collection interface has been expanded to include two methods that obtain a stream from a collection
+
+`Stream<T> stream()`
+`Stream<T> parallelStream()`
+
+The stream() method creates a sequential stream, whereas the parallelStream() method creates a parallel stream.
+
+### Sample Stream Example
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        // Create a stream from the list of names
+        List<String> filteredNames = names.stream()
+                .filter(name -> name.startsWith("A")) // Intermediate operation
+                .map(String::toUpperCase) // Intermediate operation
+                .collect(Collectors.toList()); // Terminal operation
+
+        // Print the filtered names
+        filteredNames.forEach(System.out::println);
+    }
+}
+```
+
+Because Collection is implemented by every collection class, stream() can be used to obtain stream for any type of collection.
+
+### Using stream and Comparator
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Comparator;
+public class StreamComparatorExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        // Create a stream from the list of names and sort them
+        names.stream()
+                .sorted(Comparator.naturalOrder()) // Sort in natural order
+                .forEach(System.out::println); // Terminal operation
+    }
+}
+```
+
+### Using stream with Optional
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+public class StreamOptionalExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Create a stream from the list of numbers and find the first even number
+        Optional<Integer> firstEven = numbers.stream()
+                .filter(n -> n % 2 == 0) // Intermediate operation
+                .findFirst(); // Terminal operation
+
+        // Print the first even number if present
+        firstEven.ifPresent(System.out::println);
+    }
+}
+```
+
+### Using stream with custom comaprator
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Comparator;
+public class StreamCustomComparatorExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        // Create a stream from the list of names and sort them by length
+        names.stream()
+                .sorted(Comparator.comparingInt(String::length)) // Sort by length
+                .forEach(System.out::println); // Terminal operation
+    }
+}
+```
+
+### Using stream and consumer
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+public class StreamConsumerExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        // Create a Consumer to print names
+        Consumer<String> printName = name -> System.out.println("Name: " + name);
+
+        // Create a stream from the list of names and use the Consumer
+        names.stream()
+                .forEach(printName); // Terminal operation
+    }
+}
+```
+
+### Using stream with filter
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamFilterExample {
+    public static void main(String[] args) {
+        // Create an ArrayList of integers
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(10);
+        numbers.add(15);
+        numbers.add(20);
+        numbers.add(25);
+        numbers.add(30);
+
+        // Use stream with filter to get numbers greater than 20
+        List<Integer> filteredNumbers = numbers.stream()
+                                               .filter(num -> num > 20) // Filter condition
+                                               .collect(Collectors.toList()); // Collect the result
+
+        // Print the filtered numbers
+        System.out.println("Filtered Numbers: " + filteredNumbers);
+    }
+}
+```
+
+### Using stream and filtering with predicate
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class StreamFilterWithPredicateExample {
+    public static void main(String[] args) {
+        // Create an ArrayList of integers
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(10);
+        numbers.add(15);
+        numbers.add(20);
+        numbers.add(25);
+        numbers.add(30);
+
+        // Define a custom predicate to filter numbers greater than 20
+        Predicate<Integer> isGreaterThan20 = num -> num > 20;
+
+        // Use stream with the custom predicate to filter numbers
+        List<Integer> filteredNumbers = numbers.stream()
+                                               .filter(isGreaterThan20)
+                                               .collect(Collectors.toList());
+
+        // Print the filtered numbers
+        System.out.println("Filtered Numbers: " + filteredNumbers);
+    }
+}
+```
+
+### Reduction Operations
+
+```java
+import java.util.Arrays;
+import java.util.List; 
+import java.util.Optional;
+public class StreamReductionExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Use stream to calculate the sum of all numbers
+        Optional<Integer> sum = numbers.stream()
+                                       .reduce((a, b) -> a + b); // Reduction operation
+
+        // Print the sum if present
+        sum.ifPresent(result -> System.out.println("Sum: " + result));
+    }
+}
+```
+
+### Reduction operation with reduce
+
+By using reduce(), you can return a value from a steam based on any arbitrary accumulation operation that you define.
+```java
+import java.util.Arrays;
+import java.util.List;
+public class StreamReductionWithIdentityExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Use stream to calculate the sum of all numbers with an identity value
+        Integer sum = numbers.stream()
+                             .reduce(0, (a, b) -> a + b); // Reduction operation with identity
+
+        // Print the sum
+        System.out.println("Sum: " + sum);
+    }
+}
+```
+
+It is important to understand that the accumulator operation must satisfy three constraints. 
+It must be:
+- Associative - the order in which operations are performed does not change the result.
+- Stateless - the result of the operation depends only on the input parameters.
+- Non-interfering - the operation does not modify the data source.
+
+### BiFunction Example
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.function.BiFunction;
+import java.util.stream.IntStream;
+
+public class BiFunctionWithStreamsExample {
+   public static void main(String[] args) {
+      // Two lists of integers
+      List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+      List<Integer> list2 = Arrays.asList(10, 20, 30, 40, 50);
+
+      // Define a BiFunction to add two integers
+      BiFunction<Integer, Integer, Integer> addFunction = (a, b) -> a + b;
+
+      // Use streams to combine the two lists
+      List<Integer> result = IntStream.range(0, Math.min(list1.size(), list2.size()))
+              .mapToObj(i -> addFunction.apply(list1.get(i), list2.get(i)))
+              .toList();
+
+      // Print the result
+      System.out.println("Resulting List: " + result);
+   }
+}
+```
+
+### Using Parallel Streams
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ParallelStreamExample {
+   public static void main(String[] args) {
+      // Create a list of integers
+      List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+      // Process the list using a parallel stream
+      List<Integer> doubledNumbers = numbers.parallelStream()
+              .map(n -> n * 2)
+              .collect(Collectors.toList());
+
+      // Print the result
+      System.out.println("Doubled Numbers: " + doubledNumbers);
+   }
+}
+```
+
+When using parallel streams, you might find the follwoing version of reduce() especially helpful
+
+```java
+<U> U reduce(U identity,
+               BiFunction<U, ? super T, U> accumulator,
+               BinaryOperator<U> combiner);
+```
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+
+public class ReduceExample {
+    public static void main(String[] args) {
+        // List of strings
+        List<String> strings = Arrays.asList("Java", "Stream", "Reduce");
+
+        // Identity value
+        Integer identity = 0;
+
+        // Accumulator: Adds the length of the current string to the total
+        BiFunction<Integer, String, Integer> accumulator = (total, str) -> total + str.length();
+
+        // Combiner: Combines two partial results (useful for parallel streams)
+        BinaryOperator<Integer> combiner = Integer::sum;
+
+        // Using reduce with identity, accumulator, and combiner
+        Integer totalLength = strings.stream()
+                                     .reduce(identity, accumulator, combiner);
+
+        // Print the result
+        System.out.println("Total Length of Strings: " + totalLength);
+    }
+}
+```
+
+You can switch a parallel stream to sequential by calling the sequential() method, which is specified in BaseStream
+
+```java
+Stream<T> sequential();
+```
+
+Streams can either be ordered or unordered.
+In general, if the data source is ordered, then the stream will be ordered.
+However, when using aparallel stream, a performance boost can sometimes be obtained by allowing a stream to be unordered.
+
+When a parallel stream is unordered, each partition of the stream can be operated on independently, without having to coordinate with the others.
+
+```java
+Stream<T> unordered();
+```
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class UnorderedParallelStreamExample {
+    public static void main(String[] args) {
+        // List of integers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Using parallel stream with unordered()
+        List<Integer> evenNumbers = numbers.parallelStream()
+                                           .unordered() // Allow unordered processing
+                                           .filter(n -> n % 2 == 0) // Filter even numbers
+                                           .collect(Collectors.toList());
+
+        // Print the result
+        System.out.println("Even Numbers: " + evenNumbers);
+    }
+}
+```
+
+### Mapping
+
+The most general mapping method is map()
+
+```java
+<R> Stream<R> map(Function<? super T, ? extends R> mapper);
+```
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class CustomFunctionMapExample {
+    public static void main(String[] args) {
+        // List of integers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Custom function to square a number
+        Function<Integer, Integer> squareFunction = num -> num * num;
+
+        // Use map to apply the custom function
+        List<Integer> squaredNumbers = numbers.stream()
+                                              .map(squareFunction)
+                                              .collect(Collectors.toList());
+
+        // Print the result
+        System.out.println("Squared Numbers: " + squaredNumbers);
+    }
+}
+```
+
+Function is a functional interface that represents a function that takes one argument and produces a result.
+
+```java
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+```   
+
+T is the element type and R is the result of the mapping.
+
+### Collectors
+
+The Collectors class provides various static methods that return Collector instances.
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+public class CollectorsExample {
+    public static void main(String[] args) {
+        // List of strings
+        List<String> strings = Arrays.asList("Java", "Stream", "Collectors");
+
+        // Use Collectors.joining() to concatenate strings with a delimiter
+        String result = strings.stream()
+                               .collect(Collectors.joining(", "));
+
+        // Print the result
+        System.out.println("Concatenated String: " + result);
+    }
+}
+```
+
+The collect method has two forms
+
+```java
+<R, A> R collect(Collector<? super T, A, R> collector);
+```
+
+R - the type of the result
+A - the intermediate accumulation type
+T - the element type of the stream
+
+```java
+<R> R collect(Supplier<R> supplier,
+                  BiConsumer<R, ? super T> accumulator,
+                  BiConsumer<R, R> combiner);
+```
+
+R - the type of the result
+T - the element type of the stream
+
+The accumulator function adds an element to the result and combiner combines two partial results.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+public class CustomCollectExample {
+    public static void main(String[] args) {
+        // Stream of integers
+        Stream<Integer> numberStream = Stream.of(1, 2, 3, 4, 5);
+
+        // Custom collect implementation
+        Supplier<StringBuilder> supplier = StringBuilder::new; // Creates a new StringBuilder
+        BiConsumer<StringBuilder, Integer> accumulator = (sb, num) -> sb.append(num).append(" "); // Appends each number
+        BiConsumer<StringBuilder, StringBuilder> combiner = StringBuilder::append; // Combines two StringBuilders
+
+        // Collect the stream into a StringBuilder
+        StringBuilder result = numberStream.collect(supplier, accumulator, combiner);
+
+        // Print the result
+        System.out.println("Collected Result: " + result.toString().trim());
+    }
+}
+```
+
+Collectors class defines a number of static collector methods.
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import java.util.stream.Collectors;
+public class CollectorsGroupingByExample {
+    public static void main(String[] args) {
+        // List of strings
+        List<String> fruits = Arrays.asList("apple", "banana", "apricot", "blueberry", "cherry");
+
+        // Grouping fruits by their first letter
+        Map<Character, List<String>> groupedFruits = fruits.stream()
+                .collect(Collectors.groupingBy(fruit -> fruit.charAt(0)));
+
+        // Print the grouped fruits
+        for (Map.Entry<Character, List<String>> entry : groupedFruits.entrySet()) {
+            System.out.println("Fruits starting with '" + entry.getKey() + "': " + entry.getValue());
+        }
+    }
+}
+```
+
+### Use an Iterator with Stream
+
+An Iterator is an object that enables you to traverse a collection, obtaining each element in turn.
+The Iterator interface defines three methods:
+
+```java
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class IteratorWithStreamExample {
+    public static void main(String[] args) {
+        // Create a list of integers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Create a stream from the list
+        Stream<Integer> numberStream = numbers.stream();
+
+        // Obtain an iterator from the stream
+        Iterator<Integer> iterator = numberStream.iterator();
+
+        // Use the iterator to traverse the stream
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+}
+```
+
+### Using an Spliterator with stream
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Spliterator;
+import java.util.stream.Stream;
+
+public class SpliteratorWithStreamExample {
+    public static void main(String[] args) {
+        // Create a list of integers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Create a stream from the list
+        Stream<Integer> numberStream = numbers.stream();
+
+        // Obtain a Spliterator from the stream
+        Spliterator<Integer> spliterator = numberStream.spliterator();
+
+        // Use tryAdvance to process one element at a time
+        System.out.println("Processing one element at a time:");
+        spliterator.tryAdvance(System.out::println);
+
+        // Use forEachRemaining to process the remaining elements
+        System.out.println("Processing remaining elements:");
+        spliterator.forEachRemaining(System.out::println);
+    }
+}
+```
+
+The Spliterator interface provides methods for traversing and partitioning elements of a source.
+The Spliterator interface defines two primary methods for traversing elements: tryAdvance() and forEachRemaining().
+
+```java
+boolean tryAdvance(Consumer<? super T> action);
+void forEachRemaining(Consumer<? super T> action);
+```
+
+The tryAdvance() method processes a single element if one is available, returning true if an element was processed and false if no more elements are available.
+The forEachRemaining() method processes all remaining elements in the spliterator.
+
+To determine if one or more elements in a stream satisfy a specified predicate, use anyMatch(), allMatch(), or noneMatch().
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+public class StreamMatchExample {
+    public static void main(String[] args) {
+        // Create a list of integers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Create a stream from the list
+        Stream<Integer> numberStream = numbers.stream();
+
+        // Define a predicate to check if a number is even
+        Predicate<Integer> isEven = num -> num % 2 == 0;
+
+        // Check if any number is even
+        boolean anyEven = numberStream.anyMatch(isEven);
+        System.out.println("Any even number: " + anyEven);
+
+        // Reset the stream for further operations
+        numberStream = numbers.stream();
+
+        // Check if all numbers are even
+        boolean allEven = numberStream.allMatch(isEven);
+        System.out.println("All numbers are even: " + allEven);
+
+        // Reset the stream for further operations
+        numberStream = numbers.stream();
+
+        // Check if no numbers are even
+        boolean noneEven = numberStream.noneMatch(isEven);
+        System.out.println("No even numbers: " + noneEven);
+    }
+}
+```
+
+## Regular Expressions
+
+A regular expression is a sequence of characters that forms a search pattern.
+You can use a regular expression to check if a string contains the specified search pattern.
+
+### The Pattern Class
+
+The Pattern class is a compiled representation of a regular expression.
+You can create a Pattern object by calling the static compile() method of the Pattern class.
+
+```java
+import java.util.regex.Pattern;
+public class PatternExample {
+    public static void main(String[] args) {
+        // Create a Pattern object for a simple email regex
+        Pattern emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+
+        // Print the pattern
+        System.out.println("Email Pattern: " + emailPattern.pattern());
+    }
+}
+```
+
+### The Matcher Class
+
+The Matcher class is used to perform match operations on a character sequence using a Pattern.
+You can create a Matcher object by calling the matcher() method of the Pattern class.
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class RegexExample {
+   public static void main(String[] args) {
+      // Define a regex pattern to match words starting with 'J'
+      String regex = "\\bJ\\w+";
+      String input = "Java is a popular programming language. JavaScript is also widely used.";
+
+      // Compile the regex pattern
+      Pattern pattern = Pattern.compile(regex);
+
+      // Create a matcher for the input string
+      Matcher matcher = pattern.matcher(input);
+
+      // Find and display matches
+      System.out.println("Words starting with 'J':");
+      while (matcher.find()) {
+         System.out.println(matcher.group());
+      }
+   }
+}
+```
+
+The Pattern and Matcher classes do not have any constructor.
+
+Instead a Pattern is created by calling the compile() factory method.
+A Matcher is created by calling the matcher() method of a Pattern object.
+
+The simplest pattern matching method is matches(), which simply determines whether the character sequence matches the pattern.
+
+```java
+boolean matches(CharSequence input);
+```
+
+To determine if a sequence of the input sequence matches the pattern use find().
+It returns true if such a match is found.
+
+### Regular Expression Syntax
+
+The following table summarizes some of the most commonly used regular expression constructs:
+
+| Construct      | Description                                      | Example            |
+|----------------|--------------------------------------------------|--------------------|
+| `.`            | Matches any single character                      | `a.b` matches `acb`|
+| `*`            | Matches zero or more occurrences of the preceding element | `ab*` matches `a`, `ab`, `abb` |
+| `+`            | Matches one or more occurrences of the preceding element | `ab+` matches `ab`, `abb`, but not `a` |
+| `?`            | Matches zero or one occurrence of the preceding element | `ab?` matches `a`, `ab` |
+| `\d`           | Matches any digit (equivalent to `[0-9]`)        | `\d+` matches `123`|
+| `\w`           | Matches any word character (alphanumeric + underscore) | `\w+` matches `hello_123` |
+| `\s`           | Matches any whitespace character                  | `\s+` matches spaces, tabs |
+| `^`            | Matches the beginning of a line                   | `^abc` matches `abc` at the start of a line |
+| `$`            | Matches the end of a line                         | `abc$` matches `abc` at the end of a line |
+| `[]`           | Matches any one of the characters inside the brackets | `[abc]` matches `a`, `b`, or `c` |
+| `|`            | Logical OR operator                              | `abc|def` matches `abc` or `def` |
+| `()`           | Groups multiple tokens together                   | `(abc)+` matches `abc`, `abcabc` |
+### Example of Regular Expression
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class RegexPatternMatchingExample {
+   public static void main(String[] args) {
+      // Example 1: Match a word starting with 'J' and followed by any characters
+      String regex1 = "\\bJ\\w+";
+      String input1 = "Java and JavaScript are popular languages.";
+      System.out.println("Words starting with 'J':");
+      matchAndPrint(regex1, input1);
+
+      // Example 2: Match a valid email address
+      String regex2 = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+      String input2 = "Contact us at support@example.com or sales@company.org.";
+      System.out.println("\nValid email addresses:");
+      matchAndPrint(regex2, input2);
+
+      // Example 3: Match a phone number in the format (XXX) XXX-XXXX
+      String regex3 = "\\(\\d{3}\\) \\d{3}-\\d{4}";
+      String input3 = "Call us at (123) 456-7890 or (987) 654-3210.";
+      System.out.println("\nPhone numbers:");
+      matchAndPrint(regex3, input3);
+
+      // Example 4: Match a date in the format YYYY-MM-DD
+      String regex4 = "\\d{4}-\\d{2}-\\d{2}";
+      String input4 = "Important dates: 2023-10-01, 2024-01-15.";
+      System.out.println("\nDates in YYYY-MM-DD format:");
+      matchAndPrint(regex4, input4);
+
+      // Example 5: Match a sequence of digits (numbers)
+      String regex5 = "\\d+";
+      String input5 = "The order numbers are 12345, 67890, and 54321.";
+      System.out.println("\nNumbers:");
+      matchAndPrint(regex5, input5);
+
+      // Example 6: Match words with only uppercase letters
+      String regex6 = "\\b[A-Z]+\\b";
+      String input6 = "The acronyms are NASA, FBI, and CIA.";
+      System.out.println("\nUppercase words:");
+      matchAndPrint(regex6, input6);
+   }
+
+   // Utility method to match and print results
+   private static void matchAndPrint(String regex, String input) {
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(input);
+      while (matcher.find()) {
+         System.out.println(matcher.group());
+      }
+   }
+}
+```
+
+### Example Output
+
+```
+Words starting with 'J':
+Java
+JavaScript
+
+Valid email addresses:
+support@example.com
+sales@company.org
+
+Phone numbers:
+(123) 456-7890
+(987) 654-3210
+
+Dates in YYYY-MM-DD format:
+2023-10-01
+2024-01-15
+
+Numbers:
+12345
+67890
+54321
+
+Uppercase words:
+NASA
+FBI
+CIA
+```
+
+### Using Wildcards and Quantifiers
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+public class WildcardsQuantifiersExample {
+   public static void main(String[] args) {
+      // Example: Match words with wildcards and quantifiers
+      String regex = "a.*b"; // Matches 'a' followed by any characters and ending with 'b'
+      String input = "ab acb a123b aXYZb a b";
+
+      System.out.println("Words matching the pattern 'a.*b':");
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(input);
+      while (matcher.find()) {
+         System.out.println(matcher.group());
+      }
+   }
+}
+```
+
+### Example Output
+
+```
+Words matching the pattern 'a.*b':
+ab
+acb
+a123b
+aXYZb
+a b
+```
+
+### Working with Classes of Characters
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+public class CharacterClassesExample {
+   public static void main(String[] args) {
+      // Example: Match words with specific character classes
+      String regex = "\\b[aeiouAEIOU]\\w*"; // Words starting with a vowel
+      String input = "Apple banana Orange umbrella cat Elephant";
+
+      System.out.println("Words starting with a vowel:");
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(input);
+      while (matcher.find()) {
+         System.out.println(matcher.group());
+      }
+   }
+}
+```
+
+### Example Output
+
+```
+Words starting with a vowel:
+Apple
+Orange
+umbrella
+Elephant
+```
+
+### Using replaceAll()
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+public class ReplaceAllExample {
+   public static void main(String[] args) {
+      // Example: Replace all occurrences of a pattern
+      String regex = "\\d+"; // Matches one or more digits
+      String input = "My phone number is 123-456-7890 and my zip code is 98765.";
+
+      // Replace all digits with 'X'
+      String result = input.replaceAll(regex, "X");
+
+      System.out.println("Original String: " + input);
+      System.out.println("Modified String: " + result);
+   }
+}
+```
+
+### Using split()
+
+```java
+import java.util.regex.Pattern;
+public class SplitExample {
+   public static void main(String[] args) {
+      // Example: Split a string using a regex pattern
+      String regex = "\\s*,\\s*"; // Split by commas with optional spaces
+      String input = "apple, banana, cherry, date";
+
+      // Split the string
+      String[] fruits = input.split(regex);
+
+      System.out.println("Fruits:");
+      for (String fruit : fruits) {
+         System.out.println(fruit);
+      }
+   }
+}
+```
+
+### Two Pattern-Matching Options
+
+The Pattern class provides two methods for pattern matching: matches() and lookingAt().
+The matches() method attempts to match the entire input sequence against the pattern.
+The lookingAt() method attempts to match the input sequence, starting at the beginning, against the pattern.
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+public class PatternMatchingOptionsExample {
+   public static void main(String[] args) {
+      String regex = "\\d+"; // Matches one or more digits
+      String input = "123abc456";
+
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(input);
+
+      // Using matches()
+      boolean matchesResult = matcher.matches();
+      System.out.println("Using matches(): " + matchesResult); // false
+
+      // Reset the matcher for the next operation
+      matcher.reset();
+
+      // Using lookingAt()
+      boolean lookingAtResult = matcher.lookingAt();
+      System.out.println("Using lookingAt(): " + lookingAtResult); // true
+   }
+}
+```
+
+## Reflection
+
+Reflection is a powerful feature in Java that allows you to inspect and manipulate classes, methods, fields, and constructors at runtime.
+
+Reflection is the ability of software to analyze itself.
+It is porvided by the java.lang.reflect package and elements in Class class.
+
+### Key Components of Reflection
+
+1. **Class**: The Class class represents a class or interface in Java. It provides methods to obtain information about the class, such as its name, superclass, interfaces, methods, fields, and constructors.
+2. **Method**: The Method class represents a method in a class or interface. It provides methods to obtain information about the method, such as its name, return type, parameter types, and modifiers.
+3. **Field**: The Field class represents a field in a class or interface. It provides methods to obtain information about the field, such as its name, type, and modifiers.
+4. **Constructor**: The Constructor class represents a constructor in a class. It provides methods to obtain information about the constructor, such as its name, parameter types, and modifiers.
+5. **Modifier**: The Modifier class provides static methods to decode class and member access modifiers.
+6. **Array**: The Array class provides static methods to create and manipulate arrays.
+7. **Proxy**: The Proxy class provides static methods for creating dynamic proxy classes and instances.
+8. **InvocationHandler**: The InvocationHandler interface is used in conjunction with the Proxy class to handle method invocations on proxy instances.
+9. **AccessibleObject**: The AccessibleObject class is the superclass of Field, Method, and Constructor. It provides methods to set and check the accessibility of these members.
+10. **Type**: The Type interface represents a generic type in Java. It is implemented by several classes, including Class, ParameterizedType, TypeVariable, and WildcardType.
+
+### Sample Reflection Example
+
+```java
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+class Person {
+    private String name;
+    private int age;
+
+    public Person() {
+        this.name = "Default Name";
+        this.age = 0;
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void greet() {
+        System.out.println("Hello, my name is " + name + " and I am " + age + " years old.");
+    }
+}
+
+public class ReflectionExample {
+    public static void main(String[] args) {
+        try {
+            // Obtain the Class object
+            Class<?> personClass = Class.forName("Person");
+
+            // Get and print constructors
+            Constructor<?>[] constructors = personClass.getDeclaredConstructors();
+            System.out.println("Constructors:");
+            for (Constructor<?> constructor : constructors) {
+                System.out.println(constructor);
+            }
+
+            // Get and print fields
+            Field[] fields = personClass.getDeclaredFields();
+            System.out.println("\nFields:");
+            for (Field field : fields) {
+                System.out.println(field);
+            }
+
+            // Get and print methods
+            Method[] methods = personClass.getDeclaredMethods();
+            System.out.println("\nMethods:");
+            for (Method method : methods) {
+                System.out.println(method);
+            }
+
+            // Create an instance using a constructor
+            Constructor<?> constructor = personClass.getConstructor(String.class, int.class);
+            Object personInstance = constructor.newInstance("John Doe", 30);
+
+            // Access and modify a private field
+            Field nameField = personClass.getDeclaredField("name");
+            nameField.setAccessible(true); // Allow access to private field
+            nameField.set(personInstance, "Jane Doe");
+
+            // Invoke a method
+            Method greetMethod = personClass.getDeclaredMethod("greet");
+            greetMethod.invoke(personInstance);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Reflection allows you to analyze a software component and describe its capabilities dynamically, at run time rather than compile time.
+
+`Member` defines methods that allow you to get information about a field, constructor, or method of a class.
+
